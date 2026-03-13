@@ -1,0 +1,155 @@
+import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { Tag, Check, Shield, Sparkles, CreditCard } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+const Pricing = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  const features = [
+    'E-book completo (145 páginas, 17 capítulos)',
+    'Bônus: Dicas técnicas para saque, forehand e backhand',
+    'Checklists práticos para imprimir',
+    'Plano de evolução mental em 30 dias',
+    'Acesso vitalício + atualizações',
+    'Garantia de 7 dias',
+  ];
+
+  return (
+    <section ref={ref} className="relative py-24 bg-[#0A0A0A] overflow-hidden" id="pricing">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#CCFF00]/10 rounded-full blur-[200px]" />
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-[#CCFF00]/5 rounded-full blur-[150px]" />
+      </div>
+
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#CCFF00]/10 border border-[#CCFF00]/30 mb-6">
+            <Tag className="w-5 h-5 text-[#CCFF00]" />
+            <span className="text-[#CCFF00] font-semibold text-sm tracking-wider">OFERTA ESPECIAL DE LANÇAMENTO</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+            Investimento Único, <span className="text-gradient">Benefício para Toda a Vida</span>
+          </h2>
+        </motion.div>
+
+        {/* Pricing Card */}
+        <motion.div
+          className="relative"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* Glow Effect */}
+          <div className="absolute inset-0 bg-[#CCFF00]/20 blur-[60px] rounded-3xl scale-95" />
+
+          <div className="relative bg-[#141414] rounded-3xl border border-[#2A2A2A] overflow-hidden">
+            {/* Popular Badge */}
+            <div className="absolute top-0 right-0">
+              <div className="bg-[#CCFF00] text-black text-xs font-bold px-4 py-1 rounded-bl-xl">
+                MAIS POPULAR
+              </div>
+            </div>
+
+            <div className="p-8 sm:p-12">
+              {/* Price Section */}
+              <div className="text-center mb-8">
+                <div className="flex items-center justify-center gap-3 mb-2">
+                  <span className="text-gray-500 line-through text-xl">R$ 147,00</span>
+                  <span className="bg-red-500/20 text-red-400 text-xs font-bold px-2 py-1 rounded">
+                    -54%
+                  </span>
+                </div>
+                <div className="flex items-baseline justify-center gap-2">
+                  <span className="text-5xl sm:text-6xl font-bold text-white">R$ 67,00</span>
+                </div>
+                <div className="flex items-center justify-center gap-2 mt-2 text-gray-400">
+                  <CreditCard className="w-4 h-4" />
+                  <span className="text-sm">ou 12x de R$ 6,74 no cartão</span>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-[#2A2A2A] to-transparent mb-8" />
+
+              {/* Features */}
+              <div className="space-y-4 mb-8">
+                {features.map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    className="flex items-start gap-3"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                  >
+                    <div className="w-5 h-5 rounded-full bg-[#CCFF00]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Check className="w-3 h-3 text-[#CCFF00]" />
+                    </div>
+                    <span className="text-gray-300 text-sm">{feature}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* CTA Button */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.8 }}
+              >
+                <Button
+                  className="w-full bg-[#CCFF00] text-black hover:bg-[#9EF916] py-6 text-lg font-bold rounded-xl animate-pulse-glow transition-transform hover:scale-[1.02]"
+                  onClick={() => window.open('https://pay.hotmart.com/S104668979W', '_blank')}
+                >
+                  <Sparkles className="w-5 h-5 mr-2" />
+                  COMPRAR AGORA - R$ 67,00
+                </Button>
+              </motion.div>
+
+              {/* Guarantee */}
+              <motion.div
+                className="mt-6 flex items-center justify-center gap-2 text-gray-400 text-sm"
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.6, delay: 1 }}
+              >
+                <Shield className="w-4 h-4 text-[#CCFF00]" />
+                <span>Garantia de 7 Dias: Se não ficar satisfeito, devolvemos 100% do seu dinheiro</span>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Payment Methods */}
+        <motion.div
+          className="mt-8 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 1.1 }}
+        >
+          <p className="text-gray-500 text-sm mb-4">Pagamento 100% seguro via Hotmart</p>
+          <div className="flex items-center justify-center gap-4">
+            {['Visa', 'Mastercard', 'PayPal', 'Pix'].map((method, index) => (
+              <div
+                key={index}
+                className="px-3 py-1.5 rounded-lg bg-[#141414] border border-[#2A2A2A] text-gray-400 text-xs"
+              >
+                {method}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default Pricing;
